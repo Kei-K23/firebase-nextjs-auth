@@ -2,6 +2,7 @@ import { firebaseClientConfig, serverConfig } from "@/firebase-config";
 import { getTokens } from "next-firebase-auth-edge";
 import { cookies } from "next/headers";
 import { notFound } from "next/navigation";
+import HomePage from "./_components/HomePage";
 
 export default async function Home() {
   const tokens = await getTokens(cookies(), {
@@ -15,13 +16,5 @@ export default async function Home() {
     notFound();
   }
 
-  return (
-    <main className="flex min-h-screen flex-col items-center justify-center p-24">
-      <h1 className="text-xl mb-4">Super secure home page</h1>
-      <p>
-        Only <strong>{tokens?.decodedToken.email}</strong> holds the magic key
-        to this kingdom!
-      </p>
-    </main>
-  );
+  return <HomePage email={tokens?.decodedToken.email} />;
 }
