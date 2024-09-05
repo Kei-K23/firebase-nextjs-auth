@@ -4,6 +4,8 @@ import { cookies } from "next/headers";
 import { notFound } from "next/navigation";
 import HomePage from "./_components/HomePage";
 
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
 export default async function Home() {
   const tokens = await getTokens(cookies(), {
     apiKey: firebaseClientConfig.apiKey!,

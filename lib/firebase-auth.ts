@@ -3,7 +3,6 @@ import { serverConfig } from "@/firebase-config";
 import {
   getAuth,
   GoogleAuthProvider,
-  linkWithCredential,
   signInWithEmailAndPassword,
   signInWithPopup,
   signOut,
@@ -52,15 +51,8 @@ export async function signInWithEmailAndPass(email: string, password: string) {
       email,
       password
     );
-    const googleCredential =
-      GoogleAuthProvider.credentialFromResult(credential);
 
-    const user = credential.user;
     const idToken = await credential.user.getIdToken();
-
-    if (googleCredential != null) {
-      await linkWithCredential(user, googleCredential);
-    }
 
     await fetch("/api/login", {
       headers: {
